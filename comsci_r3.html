@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	
+		<title> Canteen Queue </title>
+	<style>
+			body {font-family: Arial, sans-serif; margin: 10px;}
+			form {max-width: 500px; margin: auto; padding: 40px; border: 2px solid #ccc; border-radius: 10px;}
+			input, select, textarea {width: 100%; padding: 8px; margin: 5px 0; border: 1px solid #ccc; border-radius: 5px;}
+			input:focus, select:focus, textarea:focus {border-color: green;}
+			button {padding: 20px; margin-top: 10px; cursor: pointer;}
+			#output {white-space: pre-line;}
+			.center-container {
+			text-align: center;
+			}
+			body {
+			background-image: url(images.jfif);
+			background-repeat: no-repeat;
+			background-size: 505px;
+			background-position: center;
+		
+			}
+			
+	</style>
+	</head>	
+	
+	<body>
+		
+		<div class=center-container>
+		<h1 style="display: inline-block; border: 2px solid black; border-radius: 15px; padding: 10px 20px;">Canteen Queue</h1>
+		<div>
+		<form id="queueForm" onsubmit="return addtoEnd()">
+		
+			<fieldset>
+			
+				<legend>Registration</legend>
+
+				<label for="fullName">Full Name:</label><br>
+				<input type="text" id="fullName" name="fullName" required><br><br>
+
+				<label for="studentId">Student ID Number:</label><br>
+				<input type="text" id="studentId" name="studentId" required><br><br>
+
+				<button type="submit"> Add to Queue </button>
+				
+			</fieldset>
+			
+		</form>
+
+
+		<button onclick="serveTo()"> Serve! </button>
+		<br>
+		
+		
+		<h3> Current Queue: </h3>
+		<div id="Queue"></div>
+		
+		
+		<script>
+		
+			var queue = [];
+				
+			function updateQueue() {
+				var output = "<ul>";
+				for (var i = 0; i < queue.length; i++) {
+					output += "<li>" + queue[i].name + " (ID: " + queue[i].id + ")</li>";
+				}
+				output += "</ul>";
+				document.getElementById("Queue").innerHTML = output;
+			}
+
+
+			function addtoEnd() {
+				var name = document.getElementById("fullName").value;
+				var studentId = document.getElementById("studentId").value;
+
+
+				if (name && studentId) {
+					queue.push({ name: name, id: studentId });
+					updateQueue();
+
+					document.getElementById("fullName").value = "";
+					document.getElementById("studentId").value = "";
+
+					return false;
+				}
+			}
+
+
+
+			function serveTo() {
+			
+				if (queue.length > 0) {
+					queue.shift();
+					updateQueue();
+				}
+			}
+
+        updateQueue();
+			
+		</script>
+		
+	</body>
+	
+</html>
